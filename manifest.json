@@ -1,0 +1,12 @@
+{
+  "name": "Plataforma EST 43",
+  "short_name": "EST 43",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7a1c1c",
+  "icons": [
+    { "src": "logo.jpg", "sizes": "192x192 512x512", "type": "image/jpeg", "purpose": "any" }
+  ]
+}
