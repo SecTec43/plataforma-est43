@@ -1,0 +1,18 @@
+{
+  "id": "./",
+  "name": "Plataforma Escolar · Secundaria Técnica 43",
+  "short_name": "Plataforma 43",
+  "description": "Administración y seguimiento escolar de la Secundaria Técnica No. 43",
+  "lang": "es-MX",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFFFFF",
+  "theme_color": "#6B1A1A",
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

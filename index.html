@@ -2,24 +2,71 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Plataforma Escolar EST 43</title>
-<meta http-equiv="refresh" content="0; url=https://script.google.com/a/macros/sectec43.edu.mx/s/AKfycbxPgtfFqssOsy4v_cqB-ofDB-2rvHzFvOSGSe8S21kr8vb6UJtzb9iKh43heO4fW3Pg/exec">
-<script>
-  // Lleva directo a la plataforma (sin recuadro), en la misma pestaña
-  window.location.replace('https://script.google.com/a/macros/sectec43.edu.mx/s/AKfycbxPgtfFqssOsy4v_cqB-ofDB-2rvHzFvOSGSe8S21kr8vb6UJtzb9iKh43heO4fW3Pg/exec');
-</script>
+<meta name="theme-color" content="#6B1A1A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Plataforma 43">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <style>
-  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
-         font-family: Arial, Helvetica, sans-serif; background: #F6F3EC; color: #1F3B45; text-align: center; padding: 16px; }
-  a { color: #1F4E5A; font-weight: bold; }
+  html,body{margin:0;height:100%;background:#fff;color:#4A1212;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
+  main{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px;box-sizing:border-box;
+    padding-top:calc(24px + env(safe-area-inset-top));padding-bottom:calc(24px + env(safe-area-inset-bottom));}
+  img{width:150px;height:150px;border-radius:50%;}
+  h1{margin:6px 0 0;font:700 22px Georgia,"Times New Roman",serif;}
+  p{margin:0;color:#7A5A5A;font-size:14px;}
+  .bar{width:150px;height:3px;background:#EBDCDC;border-radius:2px;overflow:hidden;margin-top:6px;}
+  .bar i{display:block;height:100%;width:40%;background:#6B1A1A;border-radius:2px;animation:m 1.1s ease-in-out infinite;}
+  @keyframes m{0%{transform:translateX(-100%)}100%{transform:translateX(380%)}}
+  .btn{display:block;width:100%;box-sizing:border-box;margin-top:12px;background:#6B1A1A;color:#fff;font-weight:700;text-decoration:none;padding:14px 22px;border-radius:12px;font-size:16px;border:0;font-family:inherit;cursor:pointer;}
+  .btn.sec{background:#fff;color:#6B1A1A;border:2px solid #6B1A1A;}
+  .ios{margin-top:14px;font-size:13.5px;line-height:1.5;color:#4A1212;background:#F7EFEF;border-radius:10px;padding:10px 12px;text-align:left;}
+  .off{display:none;color:#6B1A1A;font-size:13.5px;max-width:300px;line-height:1.45;}
 </style>
 </head>
 <body>
-  <div>
-    <h2 style="margin:0 0 8px;">Plataforma Escolar</h2>
-    <p style="margin:0 0 12px;">Abriendo la plataforma...</p>
-    <p style="margin:0;font-size:14px;">Si no se abre sola, <a href="https://script.google.com/a/macros/sectec43.edu.mx/s/AKfycbxPgtfFqssOsy4v_cqB-ofDB-2rvHzFvOSGSe8S21kr8vb6UJtzb9iKh43heO4fW3Pg/exec">toca aquí</a>.</p>
+<main>
+  <img src="icons/icon-192.png" alt="Escuela Secundaria Técnica No. 43">
+  <h1>Plataforma Escolar</h1>
+  <p>Secundaria Técnica No. 43 "Adalberto Viesca Sada"</p>
+
+  <div id="cargando" style="display:none;"><div class="bar"><i></i></div></div>
+
+  <div id="inicio" style="display:none;width:100%;max-width:340px;">
+    <button class="btn" id="instalar" style="display:none;" type="button">Instalar aplicación</button>
+    <div class="ios" id="ios" style="display:none;">Para instalarla en tu iPhone o iPad: toca el botón <b>Compartir</b> (el cuadro con una flecha hacia arriba) y elige <b>Agregar a pantalla de inicio</b>.</div>
+    <div class="ios" id="otro" style="display:none;">Para instalarla: abre el menú del navegador (⋮) y elige <b>Instalar aplicación</b> o <b>Agregar a pantalla principal</b>.</div>
+    <a class="btn sec" id="abrir" href="https://script.google.com/a/macros/sectec43.edu.mx/s/AKfycbxPgtfFqssOsy4v_cqB-ofDB-2rvHzFvOSGSe8S21kr8vb6UJtzb9iKh43heO4fW3Pg/exec">Abrir la plataforma</a>
+    <div class="off" id="off">Sin conexión a internet. Conéctate para abrir la plataforma.</div>
   </div>
+</main>
+<script>
+var APP_URL = 'https://script.google.com/a/macros/sectec43.edu.mx/s/AKfycbxPgtfFqssOsy4v_cqB-ofDB-2rvHzFvOSGSe8S21kr8vb6UJtzb9iKh43heO4fW3Pg/exec';
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(function(){}); }
+function ir(){ window.location.replace(APP_URL); }
+var instalada = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+var ua = navigator.userAgent || '';
+var esIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+if(instalada){
+  /* Ya es una app instalada: entra directo a la plataforma */
+  document.getElementById('cargando').style.display = 'block';
+  if(navigator.onLine === false){ document.getElementById('cargando').style.display = 'none'; document.getElementById('inicio').style.display = 'block'; document.getElementById('off').style.display = 'block'; window.addEventListener('online', ir); }
+  else ir();
+} else {
+  /* En el navegador: ofrece instalar o abrir */
+  document.getElementById('inicio').style.display = 'block';
+  var botonInstalar = document.getElementById('instalar'), evento = null;
+  if(esIOS){ document.getElementById('ios').style.display = 'block'; }
+  else {
+    window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); evento = e; botonInstalar.style.display = 'block'; document.getElementById('otro').style.display = 'none'; });
+    window.addEventListener('appinstalled', function(){ botonInstalar.style.display = 'none'; });
+    setTimeout(function(){ if(!evento) document.getElementById('otro').style.display = 'block'; }, 1500);
+    botonInstalar.addEventListener('click', function(){ if(!evento) return; evento.prompt(); evento.userChoice.then(function(){ evento = null; botonInstalar.style.display = 'none'; }); });
+  }
+}
+</script>
 </body>
 </html>
